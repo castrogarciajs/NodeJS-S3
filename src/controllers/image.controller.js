@@ -6,5 +6,6 @@ import express from "express";
  * @param {express.Response} res
  */
 export const dashboard = (req, res) => {
-  res.render("dashboard")
+  const token = req.cookies.session;
+  res.render("dashboard", { title: "Dashboard -S3", token });
 };
