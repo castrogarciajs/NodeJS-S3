@@ -1,11 +1,12 @@
-import express from 'express'
-
+import express from "express";
 
 /**
- * 
- * @param {express.Request} req 
- * @param {express.Response} res 
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
  */
 export const index = (req, res) => {
-  res.render("index", { default: "main", title: 'HOME - S3' });
+  const token = req.cookies.session;
+
+  res.render("index", { default: "main", title: "HOME - S3", token });
 };
