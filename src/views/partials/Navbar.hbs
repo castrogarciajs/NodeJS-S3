@@ -1,23 +1,23 @@
 <nav>
-  <ul>
-    <li>
-      <a href="/">home</a>
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a href="/" class="nav-link">home</a>
     </li>
     {{#if token}}
 
-      <li>
-        <a href="/dashboard">dashboard</a>
+      <li class="nav-item">
+        <a href="/dashboard" class="nav-link">dashboard</a>
       </li>
-      <li>
-        <a href="/logout">Sing Out</a>
+      <li class="nav-item">
+        <a href="/logout" class="nav-link">Sing Out</a>
       </li>
     {{else}}
 
-      <li>
-        <a href="/register">register</a>
+      <li class="nav-item">
+        <a href="/register" class="nav-link"> register</a>
       </li>
-      <li>
-        <a href="/login">login</a>
+      <li class="nav-item">
+        <a href="/login" class="nav-link">login</a>
       </li>
     {{/if}}
   </ul>
