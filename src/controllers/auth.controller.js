@@ -1,5 +1,5 @@
 import express from "express";
-import { User } from "../models/users.model.js";
+import { User } from "../models/models.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -39,7 +39,7 @@ export const registerUser = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const userExisting = await User.findOne({ where: { username } });
+    const user = await User.findOne({ where: { username } });
 
     if (!username || !password)
       return res.status(400).render("auth/Register", {
@@ -48,7 +48,7 @@ export const registerUser = async (req, res) => {
         error: "El usuario y la contraseña son requeridos",
       });
 
-    if (userExisting)
+    if (user)
       return res.status(400).render("auth/Register", {
         title: "Register - S3",
         submit: "Register",
@@ -56,7 +56,7 @@ export const registerUser = async (req, res) => {
       });
 
     await User.create({
-      username: username.toLowerCase(),
+      username: username.toLowerCase().trim(),
       password: (await bcrypt.hash(password, 10)).trim(),
     });
 
@@ -99,8 +99,9 @@ export const loginUsers = async (req, res) => {
         submit: "Login",
         error: "contraseña Incorrecta",
       });
+
     const token = jwt.sign({ userId: user.id }, process.env.MY_SECRET_KEY);
-    
+
     res.cookie("session", token, {
       httpOnly: true,
       secure: true,
