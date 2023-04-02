@@ -113,3 +113,18 @@ export const loginUsers = async (req, res) => {
     return res.status(500).send("error del servidor");
   }
 };
+
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
+export const singOut = (req, res) => {
+  try {
+    res.clearCookie("session");
+    return res.redirect("/login");
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Error del servidor");
+  }
+};
