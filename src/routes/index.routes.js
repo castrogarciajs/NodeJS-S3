@@ -1,6 +1,10 @@
 import express from "express";
-import { index } from "../controllers/index.controllers.js";
-import { dashboard, saveImage } from "../controllers/index.controllers.js";
+import {
+  index,
+  pin,
+  dashboard,
+  saveImage,
+} from "../controllers/index.controllers.js";
 import { verifyToken } from "../middlewares/middlewares.js";
 import multer from "multer";
 
@@ -12,5 +16,6 @@ const upload = multer({ dest: "uploads/" });
 router.get("/", index);
 router.get("/dashboard", verifyToken, dashboard);
 router.post("/dashboard", upload.single("images"), saveImage);
+router.get("/pin", verifyToken, pin);
 
 export { router };
