@@ -8,9 +8,7 @@ import { v2 as cloudinary } from "cloudinary";
  * @param {express.Response} res
  */
 export const index = (req, res) => {
-  const token = req.cookies.session;
-
-  res.render("index", { default: "main", title: "HOME - S3", token });
+  res.render("index", { default: "main", title: "HOME - S3" });
 };
 
 /**
@@ -29,6 +27,15 @@ export const dashboard = async (req, res) => {
  * @param {express.Request} req
  * @param {express.Response} res
  */
+export const pin = (req, res) => {
+  const token = req.cookies.session;
+  res.render("pin", { title: "Pin - S3", token });
+};
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 export const saveImage = async (req, res) => {
   const image = req.file.path;
   const id = req.cookies.id;
@@ -39,7 +46,7 @@ export const saveImage = async (req, res) => {
       image: result.secure_url,
       userId: id,
     });
-    res.json({ save: "image succescully" });
+    return res.redirect("/pin");
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Error del servidor");
