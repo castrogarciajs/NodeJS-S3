@@ -77,13 +77,6 @@ export const loginUsers = async (req, res) => {
   try {
     const user = await User.findOne({ where: { username } });
 
-    if (!username || !password)
-      return res.render("auth/Login", {
-        title: "Login - S3",
-        submit: "Login",
-        error: "Ingresa un nombre y una contraseña",
-      });
-
     if (!user)
       return res.status(401).render("auth/Login", {
         title: "Login - S3",
@@ -103,6 +96,11 @@ export const loginUsers = async (req, res) => {
     const token = jwt.sign({ userId: user.id }, process.env.MY_SECRET_KEY);
 
     res.cookie("session", token, {
+      httpOnly: true,
+      secure: true,
+      maxAge: 24 * 60 * 60 * 100,
+    });
+    res.cookie("id", user.id, {
       httpOnly: true,
       secure: true,
       maxAge: 24 * 60 * 60 * 100,
