@@ -1,7 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cookieParse from "cookie-parser";
-import { v2 as clodinary } from "cloudinary";
+import { v2 as cloudinary } from "cloudinary";
 import dotenv from "dotenv";
 import multer from "multer";
 import { create } from "express-handlebars";
@@ -23,7 +23,7 @@ const hbs = create({
   partialsDir: [resolve(__dirname, "views/partials")],
 });
 
-clodinary.config({
+cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET,
@@ -37,6 +37,7 @@ app.use(morgan("dev"));
 app.use(cookieParse());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(resolve(__dirname, "public")));
 app.use(router);
 app.use(routerAuth);
 app.use(routerImages);
