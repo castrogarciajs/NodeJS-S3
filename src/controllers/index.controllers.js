@@ -27,9 +27,15 @@ export const dashboard = async (req, res) => {
  * @param {express.Request} req
  * @param {express.Response} res
  */
-export const pin = (req, res) => {
+export const pin = async (req, res) => {
   const token = req.cookies.session;
-  res.render("pin", { title: "Pin - S3", token });
+  const images = await Image.findAll();
+  
+  res.render("pin", {
+    title: "Pin - S3",
+    token,
+    images
+  });
 };
 /**
  *
