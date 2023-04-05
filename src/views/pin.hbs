@@ -1,3 +1,5 @@
 {{!> layouts/main}}
 
-<h1>ruta imagenes</h1>
+{{#each images}}
+  <img width="500px" src="{{dataValues.image}}" />
+{{/each}}
