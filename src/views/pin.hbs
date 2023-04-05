@@ -1,5 +1,8 @@
 {{!> layouts/main}}
 
-{{#each images}}
-  <img width="500px" src="{{dataValues.image}}" />
+
+<section class="d-flex justify-content-arround align-items-center flex-wrap gap-3 mt-10">
+  {{#each images}}
+  <img class="img-fluid rounded" src="{{dataValues.image}}" />
 {{/each}}
+</section>
